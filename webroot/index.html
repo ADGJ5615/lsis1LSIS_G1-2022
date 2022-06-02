@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="css/cssFlex.css"/>
+        <script type="text/javascript" src="javascript/JS_Servidor.js"></script>
+        <script type="text/javascript" src="javascript/nova1.js"></script>
+    </head>
+
+    <body>
+
+
+        <h1>Caixas com valores retornados pelo Servidor</h1>
+        <div class="box">
+            <div id="caixa1" class="d1">um</div>
+            <div id="caixa2" class="d1">dois</div>
+            <div class="d1">
+                <input type="button" onClick="obterAlunos()" value="obter alunos"/>
+            </div>
+            <input type="button"  onClick="mudarPagina()" value="paginaNova"/>
+
+            <form method="GET" action="/html/nova1.html">
+                <input type="submit" value="paginaNovaByForm">
+            </form>
+
+
+        </div>
+        <p/>
+        <form id="form4" class="box" >
+            <div >
+                <label for="name4">Nome:</label>
+                <input type="text" id="nome" name="nome" />
+                <label for="email4">email</label>
+                <input type="text" id="email" name="email" />
+                <label for="email4">Número</label>
+                <input type="text" id="numero" name="numero" />
+            </div>
+            <div class="button">
+                <input type="button" value="Inserir Aluno" onclick="inserirAluno()">
+            </div>
+            <p/>
+            <div class="button">
+                <input type="button" value="Actualizar Aluno" onclick="actualizarAluno()">
+                <input type="button" value="telegram">
+            </div>
+
+        </form>
+    </body>
+</html>
