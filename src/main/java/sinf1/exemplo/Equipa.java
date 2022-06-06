@@ -1,7 +1,5 @@
 package sinf1.exemplo;
 
-import com.sun.jdi.event.EventQueue;
-
 import java.util.Date;
 
 public class Equipa {
