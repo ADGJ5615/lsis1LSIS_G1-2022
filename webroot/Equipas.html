@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<!--
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this template
+-->
+<html>
+<head>
+    <title>Equipas</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link type="text/css" href="css/Equipas.css" rel="stylesheet">
+    <script src="js/Equipas.js"></script>
+</head>
+<body>
+<div class="topbar">
+    <a class="Home" href="index.html">Home</a>
+    <a class="Pista" href="Pista.html">Pista</a>
+    <a class="Regras" href="Regras.html">Regras</a>
+    <a class="Equipas" href="Equipas.html">Equipas</a>
+    <div class="accountbar">
+        <div class="accountpart">
+            <button class="account" onclick="myFunction()">Conta</button>
+            <div class="accountcont" id="accountcont">
+                <a href="Perfil.html">Perfil</a>
+                <a href="Pagina_inicial.html">Logout</a>
+            </div>
+        </div>
+    </div>
+</div>
+<h1>Aqui poderás observar as equipas já inscritas para a competição</h1>
+<div class="container">
+    <div class="card">
+        <img src="images/equipa.jpg" alt="Avatar">
+        <span class="Team">Nome da equipa:</span>
+        <h3 id="nTeam">Maseratti</h3>
+        <span class="Robot">Nome do robô:</span>
+        <h3 id="nRobot">Manuel</h3>
+        <button id="myButton" class="read_more" onclick="redirect()">Ver mais</button>
+    </div>
+</div>
+</body>
+</html>
