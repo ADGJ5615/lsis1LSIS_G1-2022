@@ -20,6 +20,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import static io.vertx.ext.web.handler.StaticHandler.DEFAULT_WEB_ROOT;
+import static sinf1.exemplo.DAL.inserirEquipa;
+import static sinf1.exemplo.DAL.obterEquipa;
 
 
 /**
@@ -73,20 +75,32 @@ public class Servidor extends AbstractVerticle {
 //        response.end(listaAlunos.toString());
 //    }
 
+  // ----------------EQUIPAS--------------------------------
   private void registarEquipa(RoutingContext rc) throws ParseException {
     int id = Integer.parseInt(rc.request().getParam("idEquipa"));
-    String nome = rc.request().getParam("nome");
-    String dataCriacao = rc.request().getParam("dataCriacao");
-    Date dataCr = new SimpleDateFormat("dd/MM/yyyy").parse(dataCriacao);
-    Equipa equipa = new Equipa(id,nome, dataCr);
+     String nome = rc.request().getParam("nome");
+     String pass = rc.request().getParam("passEquipa");
+     String dataCriacao = rc.request().getParam("dataCriacao");
+     Date dataCr = new SimpleDateFormat("dd/MM/yyyy").parse(dataCriacao);
+     Equipa equipa = new Equipa(id, nome, pass, dataCr);
+     inserirEquipa(equipa);
+     HttpServerResponse response = rc.response();
+     response.setStatusCode(200).putHeader("content-type", "text/plain; charset=utf-8").end("ok");
+     response.end(Json.encodePrettily(equipa));
+   }
 
 
-    //inserirEquipa(equipa)
+public void selecionarEquipa(RoutingContext rc){
+  String id = rc.request().getParam("id");
+  int idFinal = Integer.parseInt(id);
+  Equipa equipa = obterEquipa(idFinal);
+  HttpServerResponse response = rc.response();
+  response.setStatusCode(200).putHeader("content-type", "text/plain; charset=utf-8");
+  response.end(Json.encodePrettily(equipa));
 
-    HttpServerResponse response = rc.response();
-    response.setStatusCode(200).putHeader("content-type", "text/plain; charset=utf-8").end("ok");
-    response.end(Json.encodePrettily(equipa));
-  }
+}
+
+
 
   @Override
   public void stop() {
