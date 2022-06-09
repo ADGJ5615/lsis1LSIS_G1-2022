@@ -1,11 +1,14 @@
 package sinf1.exemplo;
 
 public class Robot {
-  private int id;
+  private int id; //auto increment na bd
   private int id_equipa;
   private String mac_adress;
 
-  public Robot(){}
+
+  public Robot(){
+
+  }
   public Robot(int id, int id_equipa,String mac_adress){
     this.id=id;
     this.id_equipa=id_equipa;

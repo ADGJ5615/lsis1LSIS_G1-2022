@@ -13,14 +13,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 import io.vertx.core.json.Json;
+import io.vertx.ext.web.RoutingContext;
 
 
 public class DAL {
 
   public static void inserirEquipa (Equipa equipa){
      try{
-       Connection conn= DBConnection.getConnection(); //ver se faz conexao XD
-       PreparedStatement stmt = conn.prepareStatement("INSERT INTO Equipa (id,nome,password,_data_criacao_) VALUES (?,?,?,?)");
+       Connection conn= DBConnection.getConnection();
+       PreparedStatement stmt = conn.prepareStatement("INSERT INTO Equipa (id,nome,password,_data_criacao) VALUES (?,?,?,?)");
        stmt.setInt(1,equipa.getId());
        stmt.setString(2, equipa.getNome());
        stmt.setString(3,equipa.getPass());
@@ -86,6 +87,19 @@ public class DAL {
     System.out.println(e);
     }
 return new Equipa();
+  }
+
+  public static void inserirRobot(Robot robot){
+    Connection conn= DBConnection.getConnection(); //ver se faz conexao XD
+    try {
+      PreparedStatement stmt = conn.prepareStatement("INSERT INTO Robot (id,id_equipa,mac_adress,) VALUES (?,?,?)");
+      stmt.setInt(2,robot.getId_equipa());
+      stmt.setString(3,robot.getMac_adress());
+
+    } catch (SQLException e) {
+      throw new RuntimeException(e);
+    }
+
   }
   }
 
