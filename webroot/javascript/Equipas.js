@@ -17,17 +17,16 @@ function redirect() {
 
 function obterEquipas() {
 
-    return fetch("/")
+    return fetch("/obterEquipas")
             .then((res) => {
                 return res.json();
             })
             .then((result) => {
-
-                var caixa1 = document.getElementById("caixa1");
-                var caixa2 = document.getElementById("caixa2");
-                caixa1.innerHTML = result[0].nome;
-                caixa2.innerHTML = result[1].nome;
-
+                let li = '<div class="d1">'+result.id+ ' '+result.nome ' </div>'
+               // var caixa1 = document.getElementById("caixa1");
+                // var caixa2 = document.getElementById("caixa2");
+                caixa1.innerHTML = result;
+                caixa2.innerHTML = result;
                 return result;
             }
             ).catch(erro => {

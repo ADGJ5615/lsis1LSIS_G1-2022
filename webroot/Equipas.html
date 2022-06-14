@@ -9,7 +9,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link type="text/css" href="css/Equipas.css" rel="stylesheet">
-    <script src="js/Equipas.js"></script>
+
 </head>
 <body>
 <div class="topbar">
@@ -37,6 +37,23 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
         <h3 id="nRobot">Manuel</h3>
         <button id="myButton" class="read_more" onclick="redirect()">Ver mais</button>
     </div>
+  <h1>Caixas com valores retornados pelo Servidor</h1>
+
+  <div class="box">
+    <div id="caixa1" class="d1">um</div>
+    <div id="caixa2" class="d1">dois</div>
+    <div class="d1">
+      <input type="button" onClick="obterEquipas()" value="obter equipas" method="GET"/>
+    </div>
+    <input type="button"  onClick="mudarPagina()" value="paginaNova"/>
+
+    <form method="GET" action="/html/nova1.html">
+      <input type="submit" value="paginaNovaByForm">
+    </form>
+
+
+  </div>
 </div>
+<script src="javascript/Equipas.js"></script>
 </body>
 </html>

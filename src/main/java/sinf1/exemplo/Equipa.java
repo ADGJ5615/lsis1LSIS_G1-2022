@@ -6,13 +6,13 @@ public class Equipa {
   private int id;
   private String nome;
   private String pass;
-  private Date dataCriacao;
 
-  public Equipa(int id, String nome,String pass, Date dataCriacao){
+
+  public Equipa(int id, String nome,String pass){
     this.id = id;
     this.nome=nome;
     this.pass=pass;
-    this.dataCriacao=dataCriacao;
+
   }
   public Equipa(){
 
@@ -28,9 +28,6 @@ public class Equipa {
     return pass;
   }
 
-  public Date getDataCriacao(){
-    return dataCriacao;
-}
 
   public void setId(int id) {
     this.id = id;
@@ -44,8 +41,9 @@ public class Equipa {
     this.pass = pass;
   }
 
-  public void setDataCriacao(Date dataCriacao) {
-    this.dataCriacao = dataCriacao;
+  @Override
+  public String toString() {
+    return "Equipa numero: "+id+",nome: "+nome;
   }
-
 }
+

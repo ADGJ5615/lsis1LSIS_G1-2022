@@ -12,14 +12,16 @@ import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 public class TelegramBot extends TelegramLongPollingBot {
 
   Vertx vertx;
-  private final String chat_id = "idchat"; //mudar
+  private final String chat_id = "5341123097";
 
   public TelegramBot(Vertx vertx) {
     this.vertx = vertx;
 
     System.out.println("O meu Bot do Telegram");
   }
+public TelegramBot(){
 
+}
   public void sendMessage(String msg) {
     SendMessage message = new SendMessage();
     message.setText(msg);

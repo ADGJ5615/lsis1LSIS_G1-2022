@@ -29,6 +29,7 @@ import static sinf1.exemplo.DAL.obterEquipa;
 import static sinf1.exemplo.DAL.inserirRobot;
 import static sinf1.exemplo.DAL.inserirJuri;
 
+
 /**
  *
  * @author airton
@@ -41,11 +42,14 @@ public class Servidor extends AbstractVerticle {
   public void start(Promise<Void> promise) throws Exception {
     Router router = Router.router(vertx);
 
+
+
     // por pré-definição serve index.html
     router.route().handler(BodyHandler.create());
     router.route(HttpMethod.GET, "/*").handler(StaticHandler.create(webRoot));
     router.route(HttpMethod.POST, "/registarEquipa").handler(this::registarEquipa);
     router.route(HttpMethod.POST, "/registarJuri").handler(this::registarJuri);
+    router.route(HttpMethod.GET,"/obterEquipas").handler(this::sendArrayAsStringEquipas);
 
     // router.route(HttpMethod.POST, "/registarCliente").handler(this::registarCliente);
     // router.route(HttpMethod.POST, "/updateCliente").handler(this::updateCliente);
@@ -56,7 +60,8 @@ public class Servidor extends AbstractVerticle {
 
     // cria servidor HTTP
     HttpServerOptions options = new HttpServerOptions();
-    options.setHost("127.0.0.1").setPort(8000);
+    options.setPort(8000);
+
     vertx.createHttpServer(options)
       .requestHandler(router)
       .listen(res -> {
@@ -84,14 +89,15 @@ public class Servidor extends AbstractVerticle {
 //    }
 
   // ----------------EQUIPAS--------------------------------
+
   private void registarEquipa(RoutingContext rc)  {
     try {
       int id = Integer.parseInt(rc.request().getParam("idEquipa"));
       String nome = rc.request().getParam("nome");
       String pass = rc.request().getParam("passEquipa");
       String dataCriacao = rc.request().getParam("dataCriacao");
-      Date dataCr = new SimpleDateFormat("dd/MM/yyyy").parse(dataCriacao);
-      Equipa equipa = new Equipa(id, nome, pass, dataCr);
+      //Date dataCr = new SimpleDateFormat("dd/MM/yyyy").parse(dataCriacao);
+      Equipa equipa = new Equipa(id, nome, pass);
       inserirEquipa(equipa);
       HttpServerResponse response = rc.response();
       response.setStatusCode(200).putHeader("content-type", "text/plain; charset=utf-8").end("ok");
@@ -123,11 +129,11 @@ public class Servidor extends AbstractVerticle {
     HttpServerResponse response = routingContext.response();
     response.putHeader("content-type", "text/plain; charset=utf-8");
     List<Equipa> equipas = new ArrayList<>();
-   // alunos.add(new Aluno("Alberto", "nome", 1));
-    // alunos.add(new Aluno("Sampaio", "apelido", 2));
+    DAL dal = new DAL();
+    equipas = dal.obterEquipasArray();
+    response.end(Json.encodePrettily(equipas));
+    //response.end(equipas.toString());
     response.setStatusCode(200);
-   // response.end(alunos.toString());
-
   }
 
   @Override

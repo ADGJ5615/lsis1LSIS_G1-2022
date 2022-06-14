@@ -125,4 +125,22 @@ span{
     margin: 0 auto;
     display: block;
 }
+.box {
+    width: 400px;
+    background-color: lightgray;
+    height: 150px;
+    display:flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-around ; /*espaço à volta de cada*/
+    align-items: center;
+}
+
+.d1 { text-align: center;
+      width: 150px; height: 50px;
+      border:1px solid green;
+      display: flex;
+      align-items: center; /* centra vertical*/
+      justify-content: center        /* centra horizontal*/
+}
 
