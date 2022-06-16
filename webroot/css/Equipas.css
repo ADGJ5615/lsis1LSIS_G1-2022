@@ -303,11 +303,11 @@ body {
       -webkit-box-shadow: 0 0 2px 1px rgba(255, 169, 0, 0.5);
       -moz-box-shadow: 0 0 2px 1px rgba(255, 169, 0, 0.5);
       box-shadow: 0 0 2px 1px rgba(255, 169, 0, 0.5);
-      border: 1px solid $yellow;
+      border: 1px solid $yellow
       background: #fafafa;
     }
     &[type="submit"] {
-		background: $yellow;
+		background: yellow;
 		height: 35px;
 		line-height: 35px;
 		width: 100%;
@@ -322,10 +322,10 @@ body {
 		-ms-transition: all 0.30s ease-in-out;
 		transition: all 0.30s ease-in-out;
 		&:hover {
-			background: darken($yellow,7%);
+			background: darken(yellow,7%);
 		}
 		&:focus {
-			background: darken($yellow,7%);
+			background: darken(yellow,7%);
 		}
 	}
     &[type="checkbox"], &[type="radio"] {
@@ -343,7 +343,7 @@ body {
 .form_container {
 	.row {
 		.col_half.last {
-			border-left: 1px solid $grey;
+			border-left: 1px solid $grey
 		}
 	}
 }
@@ -358,15 +358,15 @@ body {
           height: 0.5em;
           margin-right: 0.5em;
           vertical-align: -2px;
-          border: 2px solid $grey;
+          border: 2px solid $grey
           padding: 0.12em;
           background-color: transparent;
           background-clip: content-box;
           transition: all 0.2s ease;
         }
         &:after {
-          border-right: 2px solid $black;
-          border-top: 2px solid $black;
+          border-right: 2px solid $black
+          border-top: 2px solid $black
           content: "";
           height: 20px;
           left: 2px;
