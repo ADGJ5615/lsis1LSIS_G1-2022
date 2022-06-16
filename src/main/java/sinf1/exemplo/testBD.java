@@ -36,7 +36,7 @@ public class testBD {
    //equipasTeste= dal.obterEquipasArray();
    //System.out.println(equipasTeste.get(2).getId());
 
-Robot robot = new Robot(2,"afadf");
+Robot robot = new Robot(0,2,"afadf");
 inserirRobot(robot);
 
 

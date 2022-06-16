@@ -29,11 +29,11 @@ public int registarEquipa(int id,String nome, String password) throws SQLExcepti
     }
     conn.close();
     return resultado;
-}    
+}
 public int registarJuri(int id, String nome, String password) throws SQLException {
-    Juri juri = new Juri();
-    juri.setNome(nome);
-    juri.setPass(password);
+    //Juri juri = new Juri();
+    //juri.setNome(nome);
+    //juri.setPass(password);
     String SQL = "insert into Elementos_juri (id,nome,password) values(?,?,?)";
     Connection conn = DBConnection.getConnection();
     PreparedStatement ps;
@@ -51,4 +51,6 @@ public int registarJuri(int id, String nome, String password) throws SQLExceptio
     conn.close();
     return resultado;
 }
+
+
 }

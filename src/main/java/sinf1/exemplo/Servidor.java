@@ -1,5 +1,6 @@
 package sinf1.exemplo;
 
+import com.mysql.cj.x.protobuf.MysqlxDatatypes;
 import io.vertx.core.AbstractVerticle;
 import io.vertx.core.Promise;
 import io.vertx.core.Vertx;
@@ -50,6 +51,7 @@ public class Servidor extends AbstractVerticle {
     router.route(HttpMethod.GET,"/obterEquipas").handler(this::sendArrayAsStringEquipas);
     router.post("/Equipa/registarEquipa").handler(this::registarEquipa);
     router.post("/Juri/registarJuri").handler(this::registarJuri);
+    router.post("/registarRobot").handler(this::registarRobot);
 
     // router.route(HttpMethod.POST, "/registarCliente").handler(this::registarCliente);
     // router.route(HttpMethod.POST, "/updateCliente").handler(this::updateCliente);
@@ -91,7 +93,7 @@ public class Servidor extends AbstractVerticle {
   // ----------------EQUIPAS--------------------------------
 
   private void registarEquipa(RoutingContext rc)  {
-   String nome = rc.request().getParam("nome");
+    String nome = rc.request().getParam("nome");
    String password = rc.request().getParam("pass");
    int id = Integer.parseInt(rc.request().getParam("id"));
    try {
@@ -103,7 +105,21 @@ public class Servidor extends AbstractVerticle {
         } catch (Exception e) {
             e.printStackTrace();
         }
-      
+
+  }
+  private void registarRobot(RoutingContext rc){
+    int idEquipa= Integer.parseInt(rc.request().getParam("idEquipa"));
+    String mac_adress= rc.request().getParam("mac_adress");
+    try{
+      HttpServerResponse response = rc.response();
+      response.putHeader("content-type", "application/json; charset=utf-8");
+      response.setStatusCode(200);
+      DAL dal = new DAL();
+      response.end(Json.encodePrettily(dal.registarRobot(idEquipa,mac_adress)));
+    }catch (Exception e){
+      e.printStackTrace();
+    }
+
   }
  private void registarJuri (RoutingContext rc){
    String nome = rc.request().getParam("nome");
@@ -113,12 +129,12 @@ public class Servidor extends AbstractVerticle {
             response.putHeader("content-type", "application/json; charset=utf-8");
             response.setStatusCode(200);
             LoginRegistoController loginregisto = new LoginRegistoController();
-            response.end(Json.encodePrettily(loginregisto.registarJuri(nome, password)));
+          //  response.end(Json.encodePrettily(loginregisto.registarJuri(nome, password)));
         } catch (Exception e) {
             e.printStackTrace();
         }
-      
   }
+
 
   public void selecionarEquipa(RoutingContext rc){
     String id = rc.request().getParam("id");
