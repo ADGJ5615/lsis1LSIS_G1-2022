@@ -1,7 +1,8 @@
 package sinf1.exemplo;
 
 public class Robot {
-  private int id; //auto increment na bd
+  private static int contadorId= 1;
+  private int id ;
   private int id_equipa;
   private String mac_adress;
 
@@ -9,12 +10,20 @@ public class Robot {
   public Robot(){
 
   }
-  public Robot(int id, int id_equipa,String mac_adress){
-    this.id=id;
+  // INSERIR ROBOTS NA BD
+  public Robot( int id_equipa,String mac_adress){
+
     this.id_equipa=id_equipa;
     this.mac_adress=mac_adress;
   }
 
+  // PARA OBTER ROBOTS DA BD
+public Robot(int id, int id_equipa, String mac_adress){
+    this.id=id;
+    this.id_equipa=id_equipa;
+    this.mac_adress=mac_adress;
+
+}
   public void setId(int id) {
     this.id = id;
   }

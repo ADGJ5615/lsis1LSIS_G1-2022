@@ -92,11 +92,14 @@ public class Servidor extends AbstractVerticle {
 
   private void registarEquipa(RoutingContext rc)  {
     try {
-      String idString = rc.request().getParam("idEquipa");
-      System.out.println("AQUI "+idString);
-     int id = Integer.parseInt(idString);
-      String nome = rc.request().getParam("nome");
-      String pass = rc.request().getParam("passEquipa");
+      JsonObject body = rc.getBodyAsJson();
+      //String idString = rc.request().getParam("idEquipa");
+      String idString= body.getString("idEquipa");
+      int id = Integer.parseInt(idString);
+      //String nome = rc.request().getParam("nome");
+      String nome = body.getString("nome");
+     // String pass = rc.request().getParam("passEquipa");
+      String pass = body.getString("passEquipa");
      // String dataCriacao = rc.request().getParam("dataCriacao");
       //Date dataCr = new SimpleDateFormat("dd/MM/yyyy").parse(dataCriacao);
       Equipa equipa = new Equipa(id, nome, pass);

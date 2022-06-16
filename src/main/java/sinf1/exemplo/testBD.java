@@ -27,7 +27,7 @@ import java.util.function.Supplier;
 
 import static sinf1.exemplo.DAL.inserirEquipa;
 import static sinf1.exemplo.DAL.obterEquipa;
-
+import static sinf1.exemplo.DAL.inserirRobot;
 public class testBD {
 
   public static void main(String[] args) throws SQLException {
@@ -36,15 +36,9 @@ public class testBD {
    //equipasTeste= dal.obterEquipasArray();
    //System.out.println(equipasTeste.get(2).getId());
 
-Equipa equipa1 = new Equipa(1,"Equipa1","XD");
-    Equipa equipa2 = new Equipa(2,"Equipa1","XD");
+Robot robot = new Robot(2,"afadf");
+inserirRobot(robot);
 
-    Equipa equipa3 = new Equipa(3,"Equipa1","XD");
-
-    Equipa equipa4 = new Equipa(4,"Equipa1","XD");
-
-    inserirEquipa(equipa1);
-    inserirEquipa(equipa2);inserirEquipa(equipa3);inserirEquipa(equipa4);
 
 
 

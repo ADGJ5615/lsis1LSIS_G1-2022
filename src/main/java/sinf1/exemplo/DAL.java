@@ -48,9 +48,11 @@ public class DAL {
   public static void inserirRobot (Robot robot){
     Connection conn = DBConnection.getConnection();
     try {
-      PreparedStatement stmt = conn.prepareStatement("INSERT INTO Robot (id,id_equipa,mac_adress,) VALUES (?,?,?)");
-      stmt.setInt(2, robot.getId_equipa());
-      stmt.setString(3, robot.getMac_adress());
+      PreparedStatement stmt = conn.prepareStatement("INSERT INTO Robot (id_equipa,mac_adress,) VALUES (?,?)");
+      stmt.setInt(1, robot.getId_equipa());
+      stmt.setString(2, robot.getMac_adress());
+      stmt.executeUpdate();
+      conn.close();
 
     } catch (SQLException e) {
       throw new RuntimeException(e);
