@@ -47,9 +47,9 @@ public class Servidor extends AbstractVerticle {
     // por pré-definição serve index.html
     router.route().handler(BodyHandler.create());
     router.route(HttpMethod.GET, "/*").handler(StaticHandler.create(webRoot));
-    router.route(HttpMethod.POST, "/registarEquipa").handler(this::registarEquipa);
-    router.route(HttpMethod.POST, "/registarJuri").handler(this::registarJuri);
     router.route(HttpMethod.GET,"/obterEquipas").handler(this::sendArrayAsStringEquipas);
+    router.post("/Equipa/registarEquipa").handler(this::registarEquipa);
+    router.post("/Juri/registarJuri").handler(this::registarJuri);
 
     // router.route(HttpMethod.POST, "/registarCliente").handler(this::registarCliente);
     // router.route(HttpMethod.POST, "/updateCliente").handler(this::updateCliente);
@@ -60,7 +60,7 @@ public class Servidor extends AbstractVerticle {
 
     // cria servidor HTTP
     HttpServerOptions options = new HttpServerOptions();
-    options.setPort(8000);
+    options.setPort(8010);
 
     vertx.createHttpServer(options)
       .requestHandler(router)
@@ -91,32 +91,34 @@ public class Servidor extends AbstractVerticle {
   // ----------------EQUIPAS--------------------------------
 
   private void registarEquipa(RoutingContext rc)  {
-    try {
-      String idString = rc.request().getParam("idEquipa");
-      System.out.println("AQUI "+idString);
-     int id = Integer.parseInt(idString);
-      String nome = rc.request().getParam("nome");
-      String pass = rc.request().getParam("passEquipa");
-     // String dataCriacao = rc.request().getParam("dataCriacao");
-      //Date dataCr = new SimpleDateFormat("dd/MM/yyyy").parse(dataCriacao);
-      Equipa equipa = new Equipa(id, nome, pass);
-
-      inserirEquipa(equipa);
-      HttpServerResponse response = rc.response();
-      response.setStatusCode(201).putHeader("content-type", "text/plain; charset=utf-8").end("ok");
-      response.end(Json.encodePrettily(equipa));
-    } catch(Exception e){
-      e.printStackTrace();
-       }
-    }
+   String nome = rc.request().getParam("nome");
+   String password = rc.request().getParam("pass");
+   int id = Integer.parseInt(rc.request().getParam("id"));
+   try {
+            HttpServerResponse response = rc.response();
+            response.putHeader("content-type", "application/json; charset=utf-8");
+            response.setStatusCode(200);
+            LoginRegistoController loginregisto = new LoginRegistoController();
+            response.end(Json.encodePrettily(loginregisto.registarEquipa(id, nome, password)));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+      
+  }
  private void registarJuri (RoutingContext rc){
-    String nome = rc.request().getParam("nomeJuri");
-    Elementos_juri juri = new Elementos_juri(nome);
-    inserirJuri(juri);
-    HttpServerResponse response = rc.response();
-   response.setStatusCode(200).putHeader("content-type", "text/plain; charset=utf-8").end("ok");
-   response.end(Json.encodePrettily(juri));
- }
+   String nome = rc.request().getParam("nome");
+   String password = rc.request().getParam("pass");
+   try {
+            HttpServerResponse response = rc.response();
+            response.putHeader("content-type", "application/json; charset=utf-8");
+            response.setStatusCode(200);
+            LoginRegistoController loginregisto = new LoginRegistoController();
+            response.end(Json.encodePrettily(loginregisto.registarJuri(nome, password)));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+      
+  }
 
   public void selecionarEquipa(RoutingContext rc){
     String id = rc.request().getParam("id");
