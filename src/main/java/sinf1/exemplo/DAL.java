@@ -11,6 +11,7 @@ import java.sql.ResultSetMetaData;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.RandomAccess;
 
 import io.vertx.core.json.Json;
 import io.vertx.ext.web.RoutingContext;
@@ -54,8 +55,26 @@ public class DAL {
     } catch (SQLException e) {
       throw new RuntimeException(e);
     }
-
   }
+  public ArrayList<Robot> obterRobotsArray(){
+    ArrayList<Robot> robots = new ArrayList<>();
+    try{
+      Connection conn = DBConnection.getConnection();
+      Statement stmt = conn.createStatement();
+      String sql = "SELECT * FROM Robot_";
+      ResultSet rs = stmt.executeQuery(sql);
+      while (rs.next()) {
+        Robot robot = new Robot(rs.getInt("id"),rs.getInt("id_equipa"),rs.getString("mac_adress"));
+        robots.add(robot);
+      }
+return robots;
+    }catch (Exception e){
+      e.printStackTrace();
+    }
+return robots;
+  }
+
+
   public static void selecionarEquipa(int id) {
     try {
       Connection conn = DBConnection.getConnection();
@@ -123,12 +142,14 @@ public class DAL {
         Equipa equipa = new Equipa(rs.getInt("id"), rs.getString("nome"), rs.getString("password"));
         equipas.add(equipa);
       }
+      conn.close();
       return equipas;
     }
     catch (Exception e){
       System.out.println(e);
     }
     return equipas;
+
   }
 
 

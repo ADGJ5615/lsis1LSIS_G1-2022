@@ -31,28 +31,55 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
 <div class="container">
     <div class="card">
         <img src="images/equipa.jpg" alt="Avatar">
-        <span class="Team">Nome da equipa:</span>
+        <span class="Team">Equipa nº: </span>
         <h3 id="nTeam">Maseratti</h3>
         <span class="Robot">Nome do robô:</span>
         <h3 id="nRobot">Manuel</h3>
         <button id="myButton" class="read_more" onclick="redirect()">Ver mais</button>
     </div>
-  <h1>Caixas com valores retornados pelo Servidor</h1>
 
-  <div class="box">
-    <div id="caixa1" class="d1">um</div>
-    <div id="caixa2" class="d1">dois</div>
-    <div class="d1">
-      <input type="button" onClick="obterEquipas()" value="obter equipas" method="GET"/>
+
+  <div class="form_wrapper">
+    <div class="form_container">
+      <div class="title_container">
+        <h2>Registar equipa</h2>
+      </div>
+      <div class="row clearfix">
+        <div class="">
+
+          <form id="registarEquipasID"  name="equipasName">
+            <div class="col_half">
+              <div class="input_field"> <span><i aria-hidden="true" class="fa fa-user"></i></span>
+                <input type="text" name="idEquipa" placeholder="Nº da equipa" id="numeroEquipaID"/>
+              </div>
+              <div class="input_field"> <span><i aria-hidden="true" class="fa fa-user"></i></span>
+                <input type="text" name="nome" placeholder="Nome da equipa" id="nomeEquipaID" />
+              </div>
+              <div class="input_field"> <span><i aria-hidden="true" class="fa fa-lock"></i></span>
+                <input type="password" name="passEquipa" placeholder="Password" required id="passEquipaID" />
+              </div>
+            </div>
+
+            <input class="button" type="submit" value="Register" onclick="registarEquipas()" />
+          </form>
+
+        </div>
+      </div>
     </div>
-    <input type="button"  onClick="mudarPagina()" value="paginaNova"/>
-
-    <form method="GET" action="/html/nova1.html">
-      <input type="submit" value="paginaNovaByForm">
-    </form>
-
-
   </div>
+
+
+<div>
+  <h1>Equipas regsitadas </h1>
+  <div>
+    <table id="respostaEquipas">
+
+    </table>
+  </div>
+  <input type="button" onClick="obterEquipas()" value="obter equipas" method="GET"/>
+</div>
+
+
 </div>
 <script src="javascript/Equipas.js"></script>
 </body>
