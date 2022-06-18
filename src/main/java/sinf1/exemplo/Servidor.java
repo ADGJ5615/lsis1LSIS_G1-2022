@@ -27,7 +27,7 @@ import java.util.List;
 import static io.vertx.ext.web.handler.StaticHandler.DEFAULT_WEB_ROOT;
 import static sinf1.exemplo.DAL.inserirEquipa;
 import static sinf1.exemplo.DAL.obterEquipa;
-import static sinf1.exemplo.DAL.inserirRobot;
+
 import static sinf1.exemplo.DAL.inserirJuri;
 
 
@@ -51,14 +51,9 @@ public class Servidor extends AbstractVerticle {
     router.route(HttpMethod.GET,"/obterEquipas").handler(this::sendArrayAsStringEquipas);
     router.post("/Equipa/registarEquipa").handler(this::registarEquipa);
     router.post("/Juri/registarJuri").handler(this::registarJuri);
-    router.post("/registarRobot").handler(this::registarRobot);
+    router.post("/Robot/registarRobot").handler(this::registarRobot);
+    router.post("/Competicao/registarCompeticao").handler(this::registarCompeticao);
 
-    // router.route(HttpMethod.POST, "/registarCliente").handler(this::registarCliente);
-    // router.route(HttpMethod.POST, "/updateCliente").handler(this::updateCliente);
-    // router.route(HttpMethod.GET, "/selecionarCliente").handler(this::selecionarCliente);
-
-//        router.route(HttpMethod.POST, "/alunos").handler(this::addAluno);
-//       router.route(HttpMethod.GET,"/buscaAlunos").handler(this::sendArrayAsString);
 
     // cria servidor HTTP
     HttpServerOptions options = new HttpServerOptions();
@@ -92,23 +87,22 @@ public class Servidor extends AbstractVerticle {
 
   // ----------------EQUIPAS--------------------------------
 
-  private void registarEquipa(RoutingContext rc)  {
+  private void registarEquipa(RoutingContext rc) {
     String nome = rc.request().getParam("nome");
-   String password = rc.request().getParam("pass");
-   int id = Integer.parseInt(rc.request().getParam("id"));
-   try {
-            HttpServerResponse response = rc.response();
-            response.putHeader("content-type", "application/json; charset=utf-8");
-            response.setStatusCode(200);
-            LoginRegistoController loginregisto = new LoginRegistoController();
-            response.end(Json.encodePrettily(loginregisto.registarEquipa(id, nome, password)));
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
+    String password = rc.request().getParam("pass");
+    int id = Integer.parseInt(rc.request().getParam("id"));
+    try {
+      HttpServerResponse response = rc.response();
+      response.putHeader("content-type", "application/json; charset=utf-8");
+      response.setStatusCode(200);
+      LoginRegistoController loginregisto = new LoginRegistoController();
+      response.end(Json.encodePrettily(loginregisto.registarEquipa(id, nome, password)));
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
   }
-  private void registarRobot(RoutingContext rc){
-    int idEquipa= Integer.parseInt(rc.request().getParam("idEquipa"));
+   private void registarRobot(RoutingContext rc){
+    int idEquipa= Integer.parseInt(rc.request().getParam("idEquipaRobot"));
     String mac_adress= rc.request().getParam("mac_adress");
     try{
       HttpServerResponse response = rc.response();
@@ -119,7 +113,6 @@ public class Servidor extends AbstractVerticle {
     }catch (Exception e){
       e.printStackTrace();
     }
-
   }
  private void registarJuri (RoutingContext rc){
    String nome = rc.request().getParam("nome");
@@ -134,16 +127,31 @@ public class Servidor extends AbstractVerticle {
             e.printStackTrace();
         }
   }
+ private void registarCompeticao(RoutingContext rc){
+    int id = Integer.parseInt(rc.request().getParam("id"));
+    String nome = rc.request().getParam("nomeCompeticao");
+    Date dataUtil = new Date(rc.request().getParam("dataC")); //year/month/date
+    java.sql.Date dataSQL= new java.sql.Date(dataUtil.getTime());
+    try{
+      HttpServerResponse response = rc.response();
+      response.putHeader("content-type", "application/json; charset=utf-8");
+      response.setStatusCode(200);
+      DAL dal = new DAL();
+      //response.end(Json.encodePrettily(dal.registarRobot(idEquipa,mac_adress)));
+      response.end(Json.encodePrettily(dal.registarCompeticao(id,nome,dataSQL)));
+    }catch (Exception e){
+      e.printStackTrace();
+    }
 
+}
 
-  public void selecionarEquipa(RoutingContext rc){
+ public void selecionarEquipa(RoutingContext rc){
     String id = rc.request().getParam("id");
     int idFinal = Integer.parseInt(id);
     Equipa equipa = obterEquipa(idFinal);
     HttpServerResponse response = rc.response();
     response.setStatusCode(200).putHeader("content-type", "text/plain; charset=utf-8");
     response.end(Json.encodePrettily(equipa));
-
 }
 // GET Equipas
   public void sendArrayAsStringEquipas(RoutingContext routingContext) {

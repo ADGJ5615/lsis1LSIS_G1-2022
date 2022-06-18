@@ -27,7 +27,7 @@ public class DAL {
        stmt.setInt(1,equipa.getId());
        stmt.setString(2, equipa.getNome());
        stmt.setString(3,equipa.getPass());
-      // stmt.setDate(4, new java.sql.Date(equipa.getDataCriacao().getTime()));
+       //stmt.setDate(4, new java.sql.Date(equipa.getDataCriacao().getTime()));
        stmt.executeUpdate();
        conn.close();
      }catch(Exception e){
@@ -60,6 +60,7 @@ public class DAL {
       throw new RuntimeException(e);
     }
   }
+
   public int registarRobot(int idEquipa, String mac_adress) throws SQLException{
     String sql = "INSERT INTO Robot(id,id_equipa,mac_adress) VALUES (?,?,?)";
     Connection conn = DBConnection.getConnection();
@@ -99,7 +100,24 @@ public class DAL {
     conn.close();
     return resultado;
   }
+  public int registarCompeticao(int id, String nome, Date dataCriacao) throws SQLException{
+    String sql = "INSERT INTO Competicao(id,nome,_data_criacao) VALUES (?,?,?)";
+    Connection conn = DBConnection.getConnection();
+    PreparedStatement ps;
+    int resultado = 0;
+    try{
+     ps = conn.prepareStatement(sql);
+     ps.setInt(1,id);
+     ps.setString(2,nome);
+     ps.setDate(3,dataCriacao);
+     resultado = ps.executeUpdate();
+    }catch(Exception e){
+      e.printStackTrace();
 
+    }
+    conn.close();
+    return resultado;
+  }
   private int novaRonda(String tipo, String nome, int idCompeticao) throws SQLException{
 
     String sql = "INSERT INTO Ronda(id,tipo,nome,id_competicao) VALUES (?,?,?,?)";
