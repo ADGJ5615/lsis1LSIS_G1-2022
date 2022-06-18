@@ -74,16 +74,6 @@ public class Servidor extends AbstractVerticle {
   }
 
 
-  //    }
-//    public void sendArrayAsString(RoutingContext routingContext) {
-//        HttpServerResponse response = routingContext.response();
-//        response.putHeader("content-type", "text/plain; charset=utf-8");
-//        List<Aluno> listaAlunos = new ArrayList<>();
-//        selectAlunos(listaAlunos);
-//        System.out.println(listaAlunos);
-//        response.setStatusCode(200);
-//        response.end(listaAlunos.toString());
-//    }
 
   // ----------------EQUIPAS--------------------------------
 
