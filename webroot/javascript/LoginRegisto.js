@@ -22,14 +22,14 @@ function registar() {
         return;
 
     } else if (document.getElementById("juri").checked === true) {
-        fetch("/Gestores", {
+        fetch("/Juri/registarJuri", {
             method: "POST",
             body: formdata
         })
             .then((res) => {
                 if (res.status === 200) {
                     alert("Registado com sucesso!");
-                    window.location.assign("/LoginRegisto.html");
+                    window.location.assign("/index.html");
                     return res.json();
                 } else {
                     throw Error("Erro no servidor!!");
@@ -51,11 +51,11 @@ function logar() {
     })
         .then((res) => {
             if (res.status === 200) {
-                window.location.assign("Cliente/PaginaCliente.html");
+                window.location.assign("/index.html");
                 alert("Login Efetuado");
                 return res.json();
             } else if (res.status === 201) {
-                window.location.assign("Gestor/PaginaGestor.html");
+                window.location.assign("/index.html");
                 return res.json();
             } else {
                 throw Error("Erro no servidor!!");

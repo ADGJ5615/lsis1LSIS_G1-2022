@@ -50,6 +50,7 @@ public class Servidor extends AbstractVerticle {
     router.route(HttpMethod.GET,"/obterEquipas").handler(this::sendArrayAsStringEquipas);
     router.post("/Equipa/registarEquipa").handler(this::registarEquipa);
     router.post("/Juri/registarJuri").handler(this::registarJuri);
+    router.post("/Login").handler(this::login);
 
     // router.route(HttpMethod.POST, "/registarCliente").handler(this::registarCliente);
     // router.route(HttpMethod.POST, "/updateCliente").handler(this::updateCliente);
@@ -60,7 +61,7 @@ public class Servidor extends AbstractVerticle {
 
     // cria servidor HTTP
     HttpServerOptions options = new HttpServerOptions();
-    options.setPort(8010);
+    options.setPort(8013);
 
     vertx.createHttpServer(options)
       .requestHandler(router)
@@ -108,12 +109,13 @@ public class Servidor extends AbstractVerticle {
  private void registarJuri (RoutingContext rc){
    String nome = rc.request().getParam("nome");
    String password = rc.request().getParam("pass");
+   int id = Integer.parseInt(rc.request().getParam("id"));
    try {
             HttpServerResponse response = rc.response();
             response.putHeader("content-type", "application/json; charset=utf-8");
             response.setStatusCode(200);
             LoginRegistoController loginregisto = new LoginRegistoController();
-            response.end(Json.encodePrettily(loginregisto.registarJuri(nome, password)));
+            response.end(Json.encodePrettily(loginregisto.registarJuri(id, nome, password)));
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -151,4 +153,25 @@ public class Servidor extends AbstractVerticle {
     Vertx vertx = Vertx.vertx();
     vertx.deployVerticle(new Servidor());
   }
+  
+  public void login(RoutingContext rc) {
+        String Username = rc.request().getParam("nome");
+        String Password = rc.request().getParam("pass");
+
+        LoginRegistoController log = new LoginRegistoController();
+        
+        String cargo = log.reconhecerLogin(Username, Password);
+
+        HttpServerResponse response = rc.response();
+        if (cargo != null) {
+            response.putHeader("content-type", "application/json; charset=utf-8");
+            if (cargo == "equipa") {
+                response.setStatusCode(200);
+            }
+            if (cargo == "juri") {
+                response.setStatusCode(201);
+            }
+            response.end();
+        }
+    }
 }
