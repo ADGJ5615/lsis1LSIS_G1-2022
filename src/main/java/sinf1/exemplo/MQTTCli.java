@@ -21,10 +21,9 @@ public class MQTTCli {
 
     private final String BROKER_HOST = "maqiatto.com";
     private final int BROKER_PORT = 1883;
-    private final String USER_NAME = "email da conta no maqiatto";
-    private final String PASSWORD = "palavra-chave da conta no maqiatto";
-    private final String topico1 = "topico"; //no maqiatto comecao pelo email
-                                             // ex: acs@isep.ipp.pt/lsis1
+    private final String USER_NAME = "";
+    private final String PASSWORD = "";
+    private final String topico1 = "";
 
     public MQTTCli(Vertx vertx, Repository repo) {
         this.vertx = vertx;

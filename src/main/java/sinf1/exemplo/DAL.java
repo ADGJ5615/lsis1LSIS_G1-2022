@@ -18,6 +18,7 @@ import io.vertx.ext.web.RoutingContext;
 
 
 public class DAL {
+  public DAL(){}
 
   public static void inserirEquipa (Equipa equipa){
      try{
@@ -26,7 +27,7 @@ public class DAL {
        stmt.setInt(1,equipa.getId());
        stmt.setString(2, equipa.getNome());
        stmt.setString(3,equipa.getPass());
-      // stmt.setDate(4, new java.sql.Date(equipa.getDataCriacao().getTime()));
+       //stmt.setDate(4, new java.sql.Date(equipa.getDataCriacao().getTime()));
        stmt.executeUpdate();
        conn.close();
      }catch(Exception e){
@@ -48,13 +49,96 @@ public class DAL {
   public static void inserirRobot (Robot robot){
     Connection conn = DBConnection.getConnection();
     try {
-      PreparedStatement stmt = conn.prepareStatement("INSERT INTO Robot (id,id_equipa,mac_adress,) VALUES (?,?,?)");
+      PreparedStatement stmt = conn.prepareStatement("INSERT INTO `Robot` (`id`, `id_equipa`, `mac_adress`) VALUES (?, ?, ?)");
+      stmt.setInt(1,robot.getId());
       stmt.setInt(2, robot.getId_equipa());
       stmt.setString(3, robot.getMac_adress());
+      stmt.executeUpdate();
+      conn.close();
 
     } catch (SQLException e) {
       throw new RuntimeException(e);
     }
+  }
+
+  public int registarRobot(int idEquipa, String mac_adress) throws SQLException{
+    String sql = "INSERT INTO Robot(id,id_equipa,mac_adress) VALUES (?,?,?)";
+    Connection conn = DBConnection.getConnection();
+    PreparedStatement ps;
+
+    int resultado = 0;
+    try{
+      ps = conn.prepareStatement(sql);
+      ps.setInt(1,0);
+      ps.setInt(2,idEquipa );
+      ps.setString(3, mac_adress);
+      resultado = ps.executeUpdate();
+    }
+    catch(Exception e){
+      e.printStackTrace();
+    }
+    conn.close();
+    return resultado;
+
+  }
+
+  private int associarEquipaACompeticao(int idEquipa,int id_competicao) throws SQLException{
+    String sql = "INSERT INTO associar_equipa(id,id_competicao,id_equipa) VALUES (?,?,?)";
+    Connection conn = DBConnection.getConnection();
+    PreparedStatement ps;
+    int resultado = 0;
+    try{
+      ps = conn.prepareStatement(sql);
+      ps.setInt(1,0);
+      ps.setInt(2,id_competicao );
+      ps.setInt(3, idEquipa);
+      resultado = ps.executeUpdate();
+    }
+    catch(Exception e){
+      e.printStackTrace();
+    }
+    conn.close();
+    return resultado;
+  }
+  public int registarCompeticao(int id, String nome, Date dataCriacao) throws SQLException{
+    String sql = "INSERT INTO Competicao(id,nome,_data_criacao) VALUES (?,?,?)";
+    Connection conn = DBConnection.getConnection();
+    PreparedStatement ps;
+    int resultado = 0;
+    try{
+     ps = conn.prepareStatement(sql);
+     ps.setInt(1,id);
+     ps.setString(2,nome);
+     ps.setDate(3,dataCriacao);
+     resultado = ps.executeUpdate();
+    }catch(Exception e){
+      e.printStackTrace();
+
+    }
+    conn.close();
+    return resultado;
+  }
+  private int novaRonda(String tipo, String nome, int idCompeticao) throws SQLException{
+
+    String sql = "INSERT INTO Ronda(id,tipo,nome,id_competicao) VALUES (?,?,?,?)";
+    Connection conn = DBConnection.getConnection();
+    PreparedStatement ps;
+
+    int resultado = 0;
+    try{
+      ps = conn.prepareStatement(sql);
+      ps.setInt(1,0);
+      ps.setString(2,tipo);
+      ps.setString(3, nome);
+      ps.setInt(4,idCompeticao);
+      resultado = ps.executeUpdate();
+    }
+    catch(Exception e){
+      e.printStackTrace();
+    }
+    conn.close();
+    return resultado;
+
   }
   public ArrayList<Robot> obterRobotsArray(){
     ArrayList<Robot> robots = new ArrayList<>();

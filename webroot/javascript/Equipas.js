@@ -22,9 +22,9 @@ function obterEquipas() {
                 return res.json();
             })
             .then((result) => {
-              let li = '<tr><th>Equipas: </th></tr>'
+              let li = '<tr><th>Numero da equipa: </th><th> Nome da equipa: </th></tr>'
               for (let i=0; i<result.length;i++){
-              li += '<tr><td>' + result[i].nome +  '</td></tr>';
+              li += '<tr><td>'+result[i].id +' </td> <td>' + result[i].nome +  '</td></tr>';
               }
               document.getElementById("respostaEquipas").innerHTML=li;
               return result;
